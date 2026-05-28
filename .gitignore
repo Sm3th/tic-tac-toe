@@ -1,0 +1,22 @@
+# Compiled binaries
+*.exe
+*.out
+*.o
+*.obj
+*.ilk
+*.pdb
+
+# Visual Studio Code workspace settings
+.vscode/
+
+# macOS metadata
+.DS_Store
+__MACOSX/
+
+# Build directories
+build/
+
+# Temporary files
+*.log
+*.tmp
+*.cache

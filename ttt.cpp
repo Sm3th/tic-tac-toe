@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 using namespace std;
 
 char spaces[3][3] = { { '1', '2', '3' }, { '4', '5', '6' }, { '7', '8', '9' } };
@@ -25,26 +26,37 @@ void displayBoard()
 
 void processInput(){
     int digit;
-    cout << (currentPlayer == 'x' ? player1 : player2) << " enter a number: ";
-    cin >> digit;
+    while (true)
+    {
+        cout << (currentPlayer == 'x' ? player1 : player2) << " enter a number: ";
+        cin >> digit;
 
-    int row = (digit - 1) / 3;
-    int col = (digit - 1) % 3;
+        if (!cin)
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a number between 1 and 9.\n";
+            continue;
+        }
 
-    if (digit < 1 || digit > 9)
-    {
-        cout << "Invalid input. Please enter a number between 1 and 9.\n";
-        processInput();
-    }
-    else if (spaces[row][col] == 'x' || spaces[row][col] == 'o')
-    {
-        cout << "This cell is already taken. Please choose another one.\n";
-        processInput();
-    }
-    else
-    {
+        if (digit < 1 || digit > 9)
+        {
+            cout << "Invalid input. Please enter a number between 1 and 9.\n";
+            continue;
+        }
+
+        int row = (digit - 1) / 3;
+        int col = (digit - 1) % 3;
+
+        if (spaces[row][col] == 'x' || spaces[row][col] == 'o')
+        {
+            cout << "This cell is already taken. Please choose another one.\n";
+            continue;
+        }
+
         spaces[row][col] = currentPlayer;
         currentPlayer = (currentPlayer == 'x' ? 'o' : 'x');
+        break;
     }
 }
 
